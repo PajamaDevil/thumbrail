@@ -1,4 +1,4 @@
-# Edge Panel
+# Thumbrail
 
 A menu bar app for the touchscreen MacBook Pro. Hold the laptop by its left and
 right screen edges, slide a thumb in from either edge, and a panel of quick
@@ -15,7 +15,7 @@ swift run
 
 # Or build a proper .app (needed for Launch at login)
 ./Scripts/make-app.sh
-open build/EdgePanel.app
+open build/Thumbrail.app
 ```
 
 You can also open `Package.swift` in Xcode and press Run.
@@ -41,8 +41,8 @@ You can also open `Package.swift` in Xcode and press Run.
 ## How it works
 
 ```
-Sources/EdgePanel
-├── App/        EdgePanelApp (menu bar extra), AppSettings, SettingsView
+Sources/Thumbrail
+├── App/        ThumbrailApp (menu bar extra), AppSettings, SettingsView
 ├── Edge/       EdgeStripWindow (invisible edge catcher), EdgeController (gesture → panel)
 ├── Panel/      PanelWindow (blurred slide-in NSPanel), PanelView + widgets (SwiftUI)
 └── Services/   Battery, Volume, Brightness, Media, Clipboard
@@ -96,3 +96,7 @@ edge. Sliders move relative to where your thumb lands, like Control Center.
 - Not sandboxed and uses a private framework, so it can't go on the Mac App Store as is.
 - Ideas: customizable tiles, Wi-Fi/Bluetooth/Do Not Disturb toggles, screenshot,
   app shortcuts, haptics when the panel snaps open.
+
+## License
+
+MIT. See [LICENSE](LICENSE).

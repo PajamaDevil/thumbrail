@@ -3,13 +3,13 @@
 <plist version="1.0">
 <dict>
     <key>CFBundleName</key>
-    <string>EdgePanel</string>
+    <string>Thumbrail</string>
     <key>CFBundleDisplayName</key>
-    <string>Edge Panel</string>
+    <string>Thumbrail</string>
     <key>CFBundleIdentifier</key>
-    <string>dev.edgepanel.EdgePanel</string>
+    <string>dev.thumbrail.Thumbrail</string>
     <key>CFBundleExecutable</key>
-    <string>EdgePanel</string>
+    <string>Thumbrail</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleShortVersionString</key>

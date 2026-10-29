@@ -2,12 +2,12 @@
 import PackageDescription
 
 let package = Package(
-    name: "EdgePanel",
+    name: "Thumbrail",
     platforms: [.macOS(.v14)],
     targets: [
         .executableTarget(
-            name: "EdgePanel",
-            path: "Sources/EdgePanel",
+            name: "Thumbrail",
+            path: "Sources/Thumbrail",
             linkerSettings: [
                 .linkedFramework("IOKit"),
                 .linkedFramework("CoreAudio"),

@@ -13,7 +13,7 @@ struct SettingsView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Edge Panel").font(.headline)
+            Text("Thumbrail").font(.headline)
 
             Toggle("Left edge", isOn: $leftEdge)
             Toggle("Right edge", isOn: $rightEdge)
@@ -49,7 +49,7 @@ struct SettingsView: View {
                     }
                 }
 
-            Button("Quit Edge Panel") { NSApp.terminate(nil) }
+            Button("Quit Thumbrail") { NSApp.terminate(nil) }
         }
         .padding(16)
         .frame(width: 300)

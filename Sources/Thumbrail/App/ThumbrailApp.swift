@@ -2,11 +2,11 @@ import AppKit
 import SwiftUI
 
 @main
-struct EdgePanelApp: App {
+struct ThumbrailApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
 
     var body: some Scene {
-        MenuBarExtra("Edge Panel", systemImage: "hand.draw") {
+        MenuBarExtra("Thumbrail", systemImage: "hand.draw") {
             SettingsView(controller: appDelegate.controller)
         }
         .menuBarExtraStyle(.window)
