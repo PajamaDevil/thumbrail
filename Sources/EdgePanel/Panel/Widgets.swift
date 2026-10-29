@@ -72,16 +72,15 @@ struct SlidersRow: View {
     }
 }
 
-/// Control Center style slider: drag anywhere on it, relative to where you started,
-/// so the thumb doesn't have to land on a tiny knob.
+/// Big fill-style slider: drag anywhere on it, so the thumb doesn't have to land
+/// on a tiny knob. Avoids @State so it builds with Command Line Tools alone, which
+/// ship without the SwiftUI macro plugin.
 struct VerticalSlider: View {
     @Binding var value: Double
     let systemImage: String
     let tint: Color
     let isEnabled: Bool
     let onIconTap: (() -> Void)?
-
-    @State private var dragStartValue: Double?
 
     var body: some View {
         GeometryReader { geo in
@@ -102,11 +101,8 @@ struct VerticalSlider: View {
             .gesture(
                 DragGesture(minimumDistance: 2)
                     .onChanged { drag in
-                        let start = dragStartValue ?? value
-                        dragStartValue = start
-                        value = min(1, max(0, start - drag.translation.height / geo.size.height))
+                        value = min(1, max(0, 1 - drag.location.y / geo.size.height))
                     }
-                    .onEnded { _ in dragStartValue = nil }
             )
             .opacity(isEnabled ? 1 : 0.35)
             .allowsHitTesting(isEnabled)
@@ -155,7 +151,6 @@ struct MediaControls: View {
 
 struct ClipboardList: View {
     @ObservedObject var clipboard: ClipboardService
-    @State private var justCopied: UUID?
 
     var body: some View {
         Tile {
@@ -193,16 +188,12 @@ struct ClipboardList: View {
     private func row(_ item: ClipboardItem) -> some View {
         Button {
             clipboard.copy(item)
-            justCopied = item.id
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                if justCopied == item.id { justCopied = nil }
-            }
         } label: {
             HStack {
                 Text(item.text.trimmingCharacters(in: .whitespacesAndNewlines))
                     .lineLimit(2)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                if justCopied == item.id {
+                if clipboard.justCopiedID == item.id {
                     Image(systemName: "checkmark").foregroundStyle(.green)
                 }
             }

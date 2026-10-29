@@ -9,6 +9,8 @@ struct ClipboardItem: Identifiable, Equatable {
 @MainActor
 final class ClipboardService: ObservableObject {
     @Published private(set) var items: [ClipboardItem] = []
+    /// The item just tapped, for a brief checkmark in the list.
+    @Published private(set) var justCopiedID: UUID?
 
     private let pasteboard = NSPasteboard.general
     private let limit = 15
@@ -36,6 +38,13 @@ final class ClipboardService: ObservableObject {
         lastChangeCount = pasteboard.changeCount
         items.removeAll { $0.id == item.id }
         items.insert(item, at: 0)
+
+        justCopiedID = item.id
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+            MainActor.assumeIsolated {
+                if self?.justCopiedID == item.id { self?.justCopiedID = nil }
+            }
+        }
     }
 
     func clear() { items.removeAll() }

@@ -9,7 +9,7 @@ struct SettingsView: View {
     @AppStorage(AppSettings.stripWidthKey) private var stripWidth = 10.0
     @AppStorage(AppSettings.activeZoneKey) private var activeZone = 0.7
     @AppStorage(AppSettings.allDisplaysKey) private var allDisplays = false
-    @State private var launchAtLogin = SMAppService.mainApp.status == .enabled
+    @AppStorage("launchAtLogin") private var launchAtLogin = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
