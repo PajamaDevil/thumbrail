@@ -8,6 +8,8 @@
     <string>Thumbrail</string>
     <key>CFBundleIdentifier</key>
     <string>dev.thumbrail.Thumbrail</string>
+    <key>CFBundleIconFile</key>
+    <string>AppIcon</string>
     <key>CFBundleExecutable</key>
     <string>Thumbrail</string>
     <key>CFBundlePackageType</key>

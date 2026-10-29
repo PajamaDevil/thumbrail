@@ -1,0 +1,32 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Thumbrail.app
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          [[ "$GITHUB_REF_TYPE" == "tag" ]] || VERSION="0.0.0-dev"
+          VERSION="$VERSION" ./Scripts/make-app.sh
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Thumbrail
+          path: build/Thumbrail-*.zip
+
+      - name: Publish GitHub release
+        if: github.ref_type == 'tag'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" build/Thumbrail-*.zip --title "Thumbrail $GITHUB_REF_NAME" --generate-notes

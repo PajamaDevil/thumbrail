@@ -5,7 +5,21 @@ right screen edges, slide a thumb in from either edge, and a panel of quick
 utilities follows your thumb onto the screen: battery, volume, brightness,
 music controls and clipboard history.
 
-## Run it
+## Install
+
+Download `Thumbrail-x.y.z.zip` from the
+[latest release](https://github.com/PajamaDevil/thumbrail/releases/latest), unzip
+it and drag Thumbrail.app to Applications.
+
+The app isn't notarized by Apple yet, so the first launch is blocked. Open it
+once with right-click > Open, or go to System Settings > Privacy & Security and
+click "Open Anyway". If macOS says the app is damaged, run:
+
+```sh
+xattr -dr com.apple.quarantine /Applications/Thumbrail.app
+```
+
+## Build from source
 
 Requires macOS 14+ and Xcode 15+ (Swift 5.10).
 
@@ -13,10 +27,14 @@ Requires macOS 14+ and Xcode 15+ (Swift 5.10).
 # Quick dev run (shows in the menu bar as a hand icon)
 swift run
 
-# Or build a proper .app (needed for Launch at login)
+# Or build a universal .app and zip (needed for Launch at login)
 ./Scripts/make-app.sh
 open build/Thumbrail.app
 ```
+
+Pushing a `v*` tag runs `.github/workflows/release.yml`, which builds the app on
+a macOS runner and attaches the zip to a GitHub release. To add an icon, put a
+1024x1024 `Resources/AppIcon.png` in the repo.
 
 You can also open `Package.swift` in Xcode and press Run.
 
