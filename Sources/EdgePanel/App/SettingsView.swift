@@ -32,6 +32,10 @@ struct SettingsView: View {
                 Button("Open left") { controller.toggle(edge: .left) }
                 Button("Open right") { controller.toggle(edge: .right) }
             }
+            Text("Shortcut: ⌃⌥← / ⌃⌥→. With a mouse, press at the very edge of the screen and drag inward.")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
 
             Divider()
 

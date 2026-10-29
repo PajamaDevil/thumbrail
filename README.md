@@ -20,9 +20,15 @@ open build/EdgePanel.app
 
 You can also open `Package.swift` in Xcode and press Run.
 
-No touchscreen yet? Press the mouse at the very left or right edge of the
-built-in display and drag inward. Swiping works the same way. The menu bar
-icon also has "Open left" / "Open right" buttons.
+### Testing without a touchscreen
+
+- **Mouse/trackpad:** move the pointer all the way to the left or right edge
+  of the built-in display (middle part, not the corners), press and hold the
+  button, then drag inward. Let go after about a third of the panel is out,
+  or flick. Swiping works the same way.
+- **Keyboard:** ⌃⌥← opens the left panel and ⌃⌥→ the right one. Press again to close.
+- **Menu bar:** the hand icon has "Open left" / "Open right" buttons.
+- Close by clicking anywhere outside the panel.
 
 ### Permissions
 

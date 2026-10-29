@@ -13,6 +13,7 @@ final class EdgeController: EdgeGestureDelegate {
     private var observers: [NSObjectProtocol] = []
     private var outsideClickMonitor: Any?
     private var rebuildWork: DispatchWorkItem?
+    private var hotKeys: HotKeys?
 
     private var gestureStart: NSPoint?
     private var gestureEdge: ScreenEdge = .right
@@ -29,6 +30,7 @@ final class EdgeController: EdgeGestureDelegate {
     func start() {
         AppSettings.registerDefaults()
         rebuildStrips()
+        hotKeys = HotKeys { [weak self] edge in self?.toggle(edge: edge) }
 
         let center = NotificationCenter.default
         for name in [NSApplication.didChangeScreenParametersNotification, UserDefaults.didChangeNotification] {
