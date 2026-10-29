@@ -1,0 +1,3 @@
+# Keep GitHub's language bar to the Swift app itself.
+*.sh linguist-detectable=false
+.github/** linguist-detectable=false
