@@ -88,7 +88,7 @@ struct VerticalSlider: View {
                 Rectangle().fill(.white.opacity(0.1))
                 Rectangle()
                     .fill(tint.opacity(0.9))
-                    .frame(height: geo.size.height * value)
+                    .frame(height: geo.size.height * CGFloat(value))
                 Image(systemName: systemImage)
                     .font(.system(size: 22, weight: .semibold))
                     .foregroundStyle(value > 0.12 ? Color.black.opacity(0.65) : Color.white)
@@ -101,7 +101,7 @@ struct VerticalSlider: View {
             .gesture(
                 DragGesture(minimumDistance: 2)
                     .onChanged { drag in
-                        value = min(1, max(0, 1 - drag.location.y / geo.size.height))
+                        value = min(1, max(0, 1 - Double(drag.location.y / geo.size.height)))
                     }
             )
             .opacity(isEnabled ? 1 : 0.35)
