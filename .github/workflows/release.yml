@@ -4,6 +4,10 @@ on:
   push:
     tags: ["v*"]
   workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to release, e.g. 0.2.0 (leave empty for a test build)"
+        required: false
 
 permissions:
   contents: write
@@ -14,11 +18,20 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - name: Build Thumbrail.app
+      - name: Pick version
+        id: version
         run: |
-          VERSION="${GITHUB_REF_NAME#v}"
-          [[ "$GITHUB_REF_TYPE" == "tag" ]] || VERSION="0.0.0-dev"
-          VERSION="$VERSION" bash Scripts/make-app.sh
+          if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then
+            VERSION="${GITHUB_REF_NAME#v}"
+          elif [[ -n "${{ inputs.version }}" ]]; then
+            VERSION="${{ inputs.version }}"
+          else
+            VERSION="0.0.0-dev"
+          fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Build Thumbrail.app
+        run: VERSION="${{ steps.version.outputs.version }}" bash Scripts/make-app.sh
 
       - uses: actions/upload-artifact@v4
         with:
@@ -26,7 +39,10 @@ jobs:
           path: build/Thumbrail-*.zip
 
       - name: Publish GitHub release
-        if: github.ref_type == 'tag'
+        if: steps.version.outputs.version != '0.0.0-dev'
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create "$GITHUB_REF_NAME" build/Thumbrail-*.zip --title "Thumbrail $GITHUB_REF_NAME" --generate-notes
+        run: |
+          TAG="v${{ steps.version.outputs.version }}"
+          gh release create "$TAG" build/Thumbrail-*.zip \
+            --target "$GITHUB_SHA" --title "Thumbrail $TAG" --generate-notes
