@@ -54,16 +54,18 @@ final class WindowService: ObservableObject {
     private func frame(of window: AXUIElement) -> CGRect? {
         var position = CGPoint.zero
         var size = CGSize.zero
-        guard copy(kAXPositionAttribute, of: window, type: .cgPoint, into: &position),
-              copy(kAXSizeAttribute, of: window, type: .cgSize, into: &size) else { return nil }
+        guard let positionValue = axValue(kAXPositionAttribute, of: window),
+              let sizeValue = axValue(kAXSizeAttribute, of: window),
+              AXValueGetValue(positionValue, .cgPoint, &position),
+              AXValueGetValue(sizeValue, .cgSize, &size) else { return nil }
         return CGRect(origin: position, size: size)
     }
 
-    private func copy<T>(_ attribute: String, of window: AXUIElement, type: AXValueType, into result: inout T) -> Bool {
+    private func axValue(_ attribute: String, of window: AXUIElement) -> AXValue? {
         var value: CFTypeRef?
         guard AXUIElementCopyAttributeValue(window, attribute as CFString, &value) == .success,
-              let value, CFGetTypeID(value) == AXValueGetTypeID() else { return false }
-        return AXValueGetValue(value as! AXValue, type, &result)
+              let value, CFGetTypeID(value) == AXValueGetTypeID() else { return nil }
+        return (value as! AXValue)
     }
 
     private func set(_ point: CGPoint, on window: AXUIElement) {
