@@ -29,6 +29,7 @@ Hold your laptop by the screen edges, slide a thumb in, and the controls you rea
 | 🔊 **Volume** | Big vertical slider. Tap the speaker to mute |
 | ☀️ **Brightness** | Big vertical slider for the built-in display |
 | 🎵 **Music** | Play/pause, next and previous for any player |
+| 🪟 **Windows** | Snap the front window to the left half, right half or full screen |
 | 📋 **Clipboard** | Your last 15 copied snippets. Tap one to copy it again |
 
 The panel opens next to your thumb, from either edge, and the sliders sit closest to the side you swiped from. Pick which tiles each edge shows, and their order, in the menu bar settings.
@@ -47,7 +48,7 @@ xattr -dr com.apple.quarantine /Applications/Thumbrail.app
 ```
 </details>
 
-Thumbrail lives in your menu bar (look for the ✋ icon). The music buttons need Accessibility access, and the panel will ask for it.
+Thumbrail lives in your menu bar (look for the ✋ icon). The music and window buttons need Accessibility access, and the panel will ask for it.
 
 ## 👆 How to use it
 

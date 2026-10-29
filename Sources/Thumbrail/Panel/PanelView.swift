@@ -48,6 +48,8 @@ struct PanelView: View {
                 .frame(height: 200)
         case .media:
             MediaControls(media: services.media)
+        case .windows:
+            WindowSnapControls(windows: services.windows)
         case .clipboard:
             ClipboardList(clipboard: services.clipboard)
         }
