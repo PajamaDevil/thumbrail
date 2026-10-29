@@ -7,6 +7,7 @@ final class Services {
     let brightness = BrightnessService()
     let media = MediaService()
     let clipboard = ClipboardService()
+    let windows = WindowService()
 
     /// Called as the panel appears so values changed elsewhere (keyboard keys,
     /// Control Center) are current.
@@ -15,5 +16,6 @@ final class Services {
         volume.refresh()
         brightness.refresh()
         media.refreshAccessibility()
+        windows.refreshAccessibility()
     }
 }

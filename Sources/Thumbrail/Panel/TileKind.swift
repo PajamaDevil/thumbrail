@@ -3,7 +3,7 @@ import Foundation
 /// The tiles a panel can show. Each edge keeps its own ordered list of the ones
 /// that are turned on, stored in UserDefaults as comma-separated raw values.
 enum TileKind: String, CaseIterable, Identifiable {
-    case battery, sliders, media, clipboard
+    case battery, sliders, media, windows, clipboard
 
     var id: String { rawValue }
 
@@ -12,6 +12,7 @@ enum TileKind: String, CaseIterable, Identifiable {
         case .battery: return "Battery"
         case .sliders: return "Volume & brightness"
         case .media: return "Music controls"
+        case .windows: return "Window snapping"
         case .clipboard: return "Clipboard"
         }
     }
@@ -21,6 +22,7 @@ enum TileKind: String, CaseIterable, Identifiable {
         case .battery: return "battery.100"
         case .sliders: return "slider.vertical.3"
         case .media: return "playpause.fill"
+        case .windows: return "rectangle.split.2x1"
         case .clipboard: return "doc.on.clipboard"
         }
     }

@@ -147,6 +147,44 @@ struct MediaControls: View {
     }
 }
 
+// MARK: Window snapping
+
+struct WindowSnapControls: View {
+    @ObservedObject var windows: WindowService
+
+    var body: some View {
+        Tile {
+            if windows.hasAccessibility {
+                HStack(spacing: 8) {
+                    button("rectangle.lefthalf.filled", label: "Left") { windows.snap(.left) }
+                    button("rectangle.fill", label: "Full") { windows.snap(.full) }
+                    button("rectangle.righthalf.filled", label: "Right") { windows.snap(.right) }
+                }
+            } else {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Window snapping needs Accessibility access to move windows.")
+                        .font(.callout)
+                        .foregroundStyle(.secondary)
+                    Button("Grant access") { windows.requestAccessibility() }
+                }
+            }
+        }
+    }
+
+    private func button(_ symbol: String, label: String, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            VStack(spacing: 4) {
+                Image(systemName: symbol).font(.system(size: 22, weight: .semibold))
+                Text(label).font(.caption)
+            }
+            .frame(maxWidth: .infinity, minHeight: 56)
+            .background(.white.opacity(0.08), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+    }
+}
+
 // MARK: Clipboard
 
 struct ClipboardList: View {
