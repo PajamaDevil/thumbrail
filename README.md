@@ -31,7 +31,7 @@ Hold your laptop by the screen edges, slide a thumb in, and the controls you rea
 | 🎵 **Music** | Play/pause, next and previous for any player |
 | 📋 **Clipboard** | Your last 15 copied snippets. Tap one to copy it again |
 
-The panel opens next to your thumb, from either edge, and the sliders sit closest to the side you swiped from.
+The panel opens next to your thumb, from either edge, and the sliders sit closest to the side you swiped from. Pick which tiles each edge shows, and their order, in the menu bar settings.
 
 ## 📦 Install
 

@@ -7,6 +7,12 @@ enum AppSettings {
     static let stripWidthKey = "stripWidth"
     static let activeZoneKey = "activeZone"
     static let allDisplaysKey = "allDisplays"
+    static let tileEditorEdgeKey = "tileEditorEdge"
+
+    /// Ordered, comma-separated list of the tiles shown on that edge's panel.
+    static func tilesKey(_ edge: ScreenEdge) -> String {
+        edge == .left ? "leftEdgeTiles" : "rightEdgeTiles"
+    }
 
     static func registerDefaults() {
         UserDefaults.standard.register(defaults: [
@@ -15,6 +21,8 @@ enum AppSettings {
             stripWidthKey: 10.0,
             activeZoneKey: 0.7,
             allDisplaysKey: false,
+            tilesKey(.left): TileKind.defaultLayout,
+            tilesKey(.right): TileKind.defaultLayout,
         ])
     }
 
