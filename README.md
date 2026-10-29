@@ -73,7 +73,6 @@ New releases come from the **Release** workflow in the Actions tab. Run it with 
 ## ⚠️ Good to know
 
 - macOS doesn't have a public touchscreen API yet, so Thumbrail uses a thin invisible strip on each edge that reacts to both touches and mouse drags.
-- Brightness uses a private Apple framework, so the app can't be listed on the Mac App Store as it is.
 
 ## 📄 License
 
