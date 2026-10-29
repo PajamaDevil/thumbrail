@@ -1,6 +1,6 @@
 import AppKit
 
-enum ScreenEdge {
+enum ScreenEdge: String {
     case left, right
 }
 

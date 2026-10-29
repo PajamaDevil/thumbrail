@@ -6,6 +6,13 @@ struct PanelView: View {
     @ObservedObject var state: PanelState
     let services: Services
 
+    @AppStorage(AppSettings.tilesKey(.left)) private var leftTiles = TileKind.defaultLayout
+    @AppStorage(AppSettings.tilesKey(.right)) private var rightTiles = TileKind.defaultLayout
+
+    private var tiles: [TileKind] {
+        TileKind.decode(state.edge == .left ? leftTiles : rightTiles)
+    }
+
     var body: some View {
         HStack(spacing: 10) {
             if state.edge == .left { grabber }
@@ -18,10 +25,30 @@ struct PanelView: View {
 
     private var content: some View {
         VStack(spacing: 12) {
+            if tiles.isEmpty {
+                Text("No tiles on this edge. Turn some on in Thumbrail's settings.")
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+                    .frame(maxHeight: .infinity)
+            }
+            ForEach(tiles) { tile($0) }
+            // The clipboard grows to fill the panel; without it, stack tiles from the top.
+            if !tiles.isEmpty && !tiles.contains(.clipboard) { Spacer(minLength: 0) }
+        }
+    }
+
+    @ViewBuilder
+    private func tile(_ kind: TileKind) -> some View {
+        switch kind {
+        case .battery:
             BatteryCard(battery: services.battery)
+        case .sliders:
             SlidersRow(volume: services.volume, brightness: services.brightness, edge: state.edge)
                 .frame(height: 200)
+        case .media:
             MediaControls(media: services.media)
+        case .clipboard:
             ClipboardList(clipboard: services.clipboard)
         }
     }
